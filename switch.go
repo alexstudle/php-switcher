@@ -71,7 +71,7 @@ func main() {
 
 	cmdName := "locate"
 	cmdArgs := []string{root + "/php"}
-	out, err = exec.Command(cmdName, cmdArgs).Output()
+	out, err = exec.Command(cmdName, cmdArgs...).Output()
 	fmt.Println(out)
 	if err != nil {
 		log.Fatal(err)
