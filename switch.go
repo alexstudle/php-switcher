@@ -72,14 +72,14 @@ func main() {
 
 	flag.Parse()
 
-	root := *f
+	rootFolder := *f
 
-	version := flag.Args()[0]
+	version := *v
 	fmt.Println(version)
 
 	//region Locate PHP versions
 	cmdLocateName := "locate"
-	cmdLocateArgs := []string{"-r '^" + root + "/php[0-9]'"}
+	cmdLocateArgs := []string{"-r '^" + rootFolder + "/php[0-9]'"}
 
 	handleCmd(cmdLocateName, cmdLocateArgs, "Available versions:")
 	//endregion
