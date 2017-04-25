@@ -77,14 +77,6 @@ func main() {
 	version := flag.Args()[0]
 	fmt.Println(version)
 
-	//region Current PHP version
-	cmdCurrentVersionName := "php"
-	cmdCurrentversionArgs := []string{"php -r \\@phpinfo\\(\\)\\; | grep 'PHP Version' -m 1"}
-
-	handleCmd(cmdCurrentVersionName, cmdCurrentversionArgs, "Currently used version:")
-	//endregion
-
-
 	//region Locate PHP versions
 	cmdLocateName := "locate"
 	cmdLocateArgs := []string{"-r '^" + root + "/php[0-9]'"}
@@ -92,5 +84,11 @@ func main() {
 	handleCmd(cmdLocateName, cmdLocateArgs, "Available versions:")
 	//endregion
 
+	//region Current PHP version
+	cmdCurrentVersionName := "php"
+	cmdCurrentversionArgs := []string{"php -r \\@phpinfo\\(\\)\\; | grep 'PHP Version' -m 1"}
+
+	handleCmd(cmdCurrentVersionName, cmdCurrentversionArgs, "Currently used version:")
+	//endregion
 
 }
