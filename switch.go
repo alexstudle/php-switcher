@@ -71,10 +71,31 @@ func main() {
 
 	cmdName := "locate"
 	cmdArgs := []string{root + "/php"}
-	out, err = exec.Command(cmdName, cmdArgs...).Output()
-	fmt.Println(out)
+
+	cmd := exec.Command(cmdName, cmdArgs...)
+	cmdReader, err := cmd.StdoutPipe()
+
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, "Error creating StdoutPipe for Cmd", err)
+		os.Exit(1)
 	}
-	fmt.Printf("Currently installed versions: \r\n %v", out)
+
+	scanner := bufio.NewScanner(cmdReader)
+	go func() {
+		for scanner.Scan() {
+			fmt.Printf("Installed versions \r\n %s", scanner.Text())
+		}
+	}()
+
+	err = cmd.Start()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Error starting Cmd", err)
+		os.Exit(1)
+	}
+
+	err = cmd.Wait()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Error waiting for Cmd", err)
+		os.Exit(1)
+	}
 }
