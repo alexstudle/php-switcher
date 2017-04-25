@@ -71,7 +71,7 @@ func main() {
 	fmt.Println(version)
 
 	cmdName := "locate"
-	cmdArgs := []string{root + "/php"}
+	cmdArgs := []string{"-r '^" + root + "/php[0-9]'"}
 
 	cmd := exec.Command(cmdName, cmdArgs...)
 	cmdReader, err := cmd.StdoutPipe()
@@ -83,8 +83,9 @@ func main() {
 
 	scanner := bufio.NewScanner(cmdReader)
 	go func() {
+		fmt.Println("Installed versions \r\n %s")
 		for scanner.Scan() {
-			fmt.Printf("Installed versions \r\n %s", scanner.Text())
+			fmt.Println(scanner.Text())
 		}
 	}()
 
