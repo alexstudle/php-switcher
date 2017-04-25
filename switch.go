@@ -69,7 +69,7 @@ func main() {
 	version := flag.Args()[0]
 	fmt.Println(version)
 
-	out, err = exec.Command("/bin/sh ", "locate " + root + "/php").Output()
+	out, err = exec.Command("/bin/sh ", []string{"locate ", root + "/php"}).Output()
 	fmt.Println(out)
 	if err != nil {
 		log.Fatal(err)
