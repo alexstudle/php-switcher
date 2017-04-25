@@ -71,11 +71,6 @@ func main() {
 	flag.Var(&headerslice, "H", "")
 
 	flag.Parse()
-	if flag.NArg() < 1 {
-		fmt.Println("No Arg !")
-		flag.Usage()
-		os.Exit(1)
-	}
 
 	root := *f
 
